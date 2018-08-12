@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+a:hover, a:visited, a:link, a:active
+{
+	text-decoration: none;
+}
+a 
+{
+    outline: none;
+}
+.operations a:hover{
+	text-shadow: 2px 2px 8px #ccc;
+}
+.d-flex-wrap{
+	flex-wrap: wrap!important;
+}
+.ab-color{
+	color: #ff7a59!important;
+}
+.view-inv{
+	color: #ff7a59!important;
+}
+.view-inv:hover{
+	background:  #ff7a59!important;
+	color: #fff!important;
+	transition: all .3s ease-in-out;
+}
+.bbtm{
+	border-bottom: 1px solid #cbd6e2;
+}
+.btop{
+	border-top: 1px solid #cbd6e2;
+}
+.footer{
+	background-color:#f8f9fa!important;
+}
+.activated h3{
+	color: #ff7a59!important;
+	text-shadow: 2px 2px 8px #ccc;
+}
+@media(max-width: 768px){
+	.operations div.border{
+		border: none!important;
+	}
+}

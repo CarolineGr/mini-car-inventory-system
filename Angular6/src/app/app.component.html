@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light bbtm">
+  <a class="navbar-brand" routerLink="home" title="CDMX | Mini Car Inventory System">CDMX | <small>Mini Car Inventory System</small></a>
+</nav>
+<main role="main" class="container">
+
+      <div class="row operations">
+        <div class="col-12 col-md-4 border border-dark border-left-0 border-top-0 border-bottom-0 border-right-1 text-center justify-content-center align-self-center">
+          <a routerLink="manufacturer" class="my-auto d-block" [class.activated]="currentUrl == '/manufacturer'" title="Add Manufacturer">
+            <h3 class="text-secondary">Add Manufacturer</h3>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 border border-dark border-left-0 border-top-0 border-bottom-0 border-right-1 text-center justify-content-center align-self-center">
+          <a routerLink="model" [class.activated]="currentUrl == '/model'" title="Add Model">
+            <h3 class="text-secondary">Add Model</h3>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 text-center justify-content-center align-self-center">
+          <a routerLink="inventory" [class.activated]="currentUrl.indexOf('/inventory') != -1" title="View Inventory">
+            <h3 class="text-secondary">View Inventory</h3>
+          </a>
+        </div>
+      </div>
+      
+      <hr>
+      
+      <router-outlet></router-outlet>
+
+</main>
+<footer class="footer btop">
+  <div class="container text-center">
+    <span class="text-muted">cdmx &copy; 2018</span>
+  </div>
+</footer>

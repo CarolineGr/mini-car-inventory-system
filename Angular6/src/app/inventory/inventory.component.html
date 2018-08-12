@@ -1,0 +1,165 @@
+<h4 *ngIf="manufacturer$ && model$" class="text-center">View Inventory <span class="d-none  d-md-inline-block mx-2">|</span> <span class="d-block d-md-inline-block">Manufacturer : {{ manufacturer$ }}</span> <span class="d-none  d-md-inline-block mx-2">|</span> <span class="d-block d-md-inline-block">Model : {{ model$|titlecase }}</span></h4>
+
+<hr *ngIf="manufacturer$ && model$">
+
+<div class="container pt-3">
+
+  <div *ngIf="errorArr?.length > 0" class="alert alert-danger">
+    {{ errorArr }}
+  </div>
+  
+  <div *ngIf="successArr?.length > 0" class="alert alert-success">
+      {{ successArr }}
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col">
+
+      <div *ngIf=" manufacturer$ && model$ ">
+
+          <div *ngIf="inventoriesByManufacturerAndModel$?.length > 0">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Reg. No.</th>
+                        <th>Color</th>
+                        <th>Reg. Year</th>
+                        <th>Created At</th>
+                        <th class="text-center">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let inventory of inventoriesByManufacturerAndModel$; let i = index" [attr.data-index]="i">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ inventory.registration_no }}</td>   
+                        <td>{{ inventory.color|titlecase }}</td>
+                        <td>{{ inventory.year }}</td>  
+                        <td>{{ inventory.created_at }}</td>                 
+                        <td class="text-center">
+  
+                          <button type="button" class="btn view-inv" title="View Details" data-toggle="modal"  [attr.data-target]="'#'+inventory.registration_no">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                          </button>
+        
+                          <!-- The Modal -->
+                          <div class="modal fade" id="{{inventory.registration_no}}">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+        
+                                <!-- Modal Header -->
+                                <div class="modal-header bbtm">
+                                  <h4 class="modal-title ab-color font-weight-bold">{{ inventory.registration_no }}</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+        
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <dl class="row">
+                                        <dt class="col col-sm-5 text-right">Manufacturer Id:</dt>
+                                        <dd class="col col-sm-7 text-left">{{ manufacturer$ }}</dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Model:</dt>
+                                        <dd class="col col-sm-7 text-left">{{ inventory.name|titlecase }}</dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Reg. No.:</dt>
+                                        <dd class="col col-sm-7 text-left">{{ inventory.registration_no }}</dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Reg. Year:</dt>
+                                        <dd class="col col-sm-7 text-left">{{ inventory.year }}</dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Color:</dt>
+                                        <dd class="col col-sm-7 text-left">{{ inventory.color|titlecase }}
+                                        </dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Note:</dt>
+                                        <dd *ngIf="inventory.note" class="col col-sm-7 text-left">{{ inventory.note }}
+                                        </dd>
+                                        <dd *ngIf="!inventory.note" class="col col-sm-7 text-left">-</dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Created At:</dt>
+                                        <dd class="col col-sm-7 text-left">{{ inventory.created_at }}
+                                        </dd>
+                                        <div class="w-100 d-block d-sm-none"></div>
+                                        <dt class="col col-sm-5 text-right">Pictures:</dt>
+                                        <dd *ngIf="inventory.picture_one || inventory.picture_two" class="col col-sm-7 text-left">
+                                            <img *ngIf="inventory.picture_one" class="mr-2 border border-dark" src="{{inventory.picture_one}}" width="100" height="100" alt="{{ inventory.registration_no }}" />
+                                            <img *ngIf="inventory.picture_two" class="border border-dark" src="{{inventory.picture_two}}" width="100" height="100" alt="{{ inventory.registration_no }}" />
+                                        </dd>
+                                        <dd *ngIf="!inventory.picture_one && !inventory.picture_two" class="col col-sm-7 text-left">
+                                          No Pictures Attached.
+                                        </dd>
+                                        
+                                    </dl>
+                                        
+                                </div>
+        
+                                <!-- Modal footer -->
+                                <div class="modal-footer d-flex-wrap btop">
+                                  <div class="row w-100 text-right mb-1">
+                                    <div class="col">
+                                        <button [disabled]="soldDisabled" type="button" class="btn btn-warning mr-1" (click)="onSold(inventory.id)">Sold</button>
+                                        <button id="close_{{inventory.id}}" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>  
+                                    <div class="row w-100 text-right">
+                                      <div class="col">
+                                        <h6 class="pr-3">
+                                            <small class="text-right text-danger">
+                                              After click on sold, the record will be removed.
+                                            </small>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                  </table>
+              </div>
+          </div>
+
+      </div>
+
+      <div *ngIf=" !manufacturer$ || !model$ ">
+          
+          <div *ngIf="inventories$?.length > 0">
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>Sr. No.</th>
+                          <th>Manufacturer Name</th>
+                          <th>Model Name</th>
+                          <th>Count</th>
+                          <th class="text-center">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let inventory of inventories$; let i = index" [attr.data-index]="i">
+                          <td>{{ i+1 }}</td>
+                          <td>{{ inventory.manufacturer|titlecase }}</td>
+                          <td>{{ inventory.model|titlecase }}</td>
+                          <td>{{ inventory.inventory }}</td>                      
+                          <td class="text-center">
+                            <a title="View All Models" routerLink="/inventory/manufacturer/{{ inventory.manufacturer_id }}/model/{{ inventory.model }}" class="p-2 d-block d-md-inline-block ab-color"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                          </td>
+                        </tr>
+                    </table>
+                </div>
+          </div>
+
+      </div>
+
+      <div *ngIf="contentErrorArr" class="text-center text-danger">
+          <p>
+            {{ contentErrorArr }}
+          </p>
+      </div>
+      
+    </div>
+  </div>
+</div>

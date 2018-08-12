@@ -1,0 +1,44 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/Angular6/dist
+/Angular6/tmp
+/Angular6/out-tsc
+
+# dependencies
+/Angular6/node_modules
+
+# IDEs and editors
+/Angular6/.idea
+/Angular6/.project
+/Angular6/.classpath
+/Angular6/.c9/
+/Angular6/*.launch
+/Angular6/.settings/
+/Angular6/*.sublime-workspace
+
+# IDE - VSCode
+/Angular6/.vscode/*
+/Angular6/!.vscode/settings.json
+/Angular6/!.vscode/tasks.json
+/Angular6/!.vscode/launch.json
+/Angular6/!.vscode/extensions.json
+
+# misc
+/Angular6//.sass-cache
+/Angular6//connect.lock
+/Angular6//coverage
+/Angular6//libpeerconnection.log
+/Angular6/npm-debug.log
+/Angular6/yarn-error.log
+/Angular6/testem.log
+/Angular6//typings
+
+# System Files
+/Angular6/.DS_Store
+/Angular6/Thumbs.db
+
+/Angular6/e2e_test.*
+
+# Php files
+/Php/api/config

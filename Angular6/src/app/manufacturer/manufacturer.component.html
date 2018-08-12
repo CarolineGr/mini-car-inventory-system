@@ -1,0 +1,32 @@
+<div class="container pt-3">
+
+    <form name="manufacturer" [formGroup]="manufacturerForm" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="errorArr?.length > 0" class="alert alert-danger">
+        {{ errorArr }}
+      </div>
+      
+      <div *ngIf="successArr?.length > 0" class="alert alert-success">
+          {{ successArr }}
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm-9">
+          <div class="form-group">
+            <label for="manufacturer_name">Manufacturer Name<span class="text-danger">*</span></label>
+            <input type="text" formControlName="manufacturer_name" class="form-control" id="manufacturer_name" placeholder="Enter Manufacturer Name" [ngClass]="{ 'is-invalid': submitted && f.manufacturer_name.errors }" maxlength="190">
+            <small id="manufacturerNameHelp" class="form-text text-muted">* Required Field.</small>
+            <div *ngIf="submitted && f.manufacturer_name.errors" class="invalid-feedback">
+                <div *ngIf="f.manufacturer_name.errors.required">Manufacturer Name is required</div>
+                <div *ngIf="f.manufacturer_name.errors.maxlength">Max. 190 characters are allowed.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-3 mt-1 mt-sm-4">
+          <div class="form-group mt-2">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>

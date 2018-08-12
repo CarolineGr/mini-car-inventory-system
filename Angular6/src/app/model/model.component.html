@@ -1,0 +1,95 @@
+<div class="container pt-3">
+
+  <form name="model" [formGroup]="modelForm" novalidate (ngSubmit)="onSubmit()">
+
+      <div *ngIf="errorArr?.length > 0" class="alert alert-danger">
+          {{ errorArr }}
+      </div>
+      <div *ngIf="successArr?.length > 0" class="alert alert-success">
+          {{ successArr }}
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm-9">
+          <div class="form-group">
+            <label for="model_name">Model Name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="model_name" [ngClass]="{ 'is-invalid': submitted && f.model_name.errors }" id="model_name" placeholder="Enter Model Name" maxlength="190">
+            <small id="modelNameHelp" class="form-text text-muted">* Required Field.</small>
+            <div *ngIf="submitted && f.model_name.errors" class="invalid-feedback">
+                <div *ngIf="f.model_name.errors.required">Model Name is required.</div>
+                <div *ngIf="f.model_name.errors.maxlength">Max. 190 characters are allowed.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="color_name">Color Name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="color_name" formControlName="color_name" [ngClass]="{ 'is-invalid': submitted && f.color_name.errors }" placeholder="Enter Color Name" maxlength="190">
+            <small id="colorNameHelp" class="form-text text-muted">* Required Field.</small>
+            <div *ngIf="submitted && f.color_name.errors" class="invalid-feedback">
+                <div *ngIf="f.color_name.errors.required">Color Name is required.</div>
+                <div *ngIf="f.color_name.errors.maxlength">Max. 190 characters are allowed.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="manufacturer_year">Manufacturer Year<span class="text-danger">*</span></label>
+            <select name="manufacturer_year" id="manufacturer_year" class="form-control" formControlName="manufacturer_year" [ngClass]="{ 'is-invalid': submitted && f.manufacturer_year.errors }">
+              <option value="">Select Year</option>
+              <option *ngFor="let year of yearsArray" value="{{year}}">
+                  {{ year }}
+              </option>
+            </select>
+            <small id="manufacturerYearHelp" class="form-text text-muted">* Required Field.</small>
+            <div *ngIf="submitted && f.manufacturer_year.errors" class="invalid-feedback">
+                <div *ngIf="f.manufacturer_year.errors.required">Manufacturer year is required.</div>
+            </div>
+          </div>  
+          <div class="form-group">
+            <label for="registration_number">Registration Number<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="registration_number" placeholder="Enter Registration Number" formControlName="registration_number" [ngClass]="{ 'is-invalid': submitted && f.registration_number.errors }" maxlength="190">
+            <small id="registrationNumberHelp" class="form-text text-muted">* Required Field.</small>
+            <div *ngIf="submitted && f.registration_number.errors" class="invalid-feedback">
+                <div *ngIf="f.registration_number.errors.required">Registration no. is required.</div>
+                <div *ngIf="f.registration_number.errors.maxlength">Max. 190 characters are allowed.</div>
+            </div>
+          </div> 
+          <div class="form-group">
+            <label for="note">Note</label>
+            <textarea class="form-control" formControlName="note" id="note" placeholder="Enter Note" maxlength="190"></textarea>
+            <small id="noteHelp" class="form-text text-muted">Any related note.</small>
+          </div>    
+          <div class="form-group">
+            <label for="picture_one">Picture 1</label>
+            <input type="file" (change)="onFileChange($event)" formControlName="picture_one" name="picture_one" id="picture_one" class="form-control">
+            <small id="registrationNumberHelp" class="form-text text-muted">.jpg, .jpeg, .png, .bmp, .svg, .jfif formats are supported.</small>
+          </div>  
+          <div class="form-group">
+            <label for="picture_two">Picture 2</label>
+            <input type="file" (change)="onFileChange($event)" formControlName="picture_two" name="picture_two" id="picture_two" class="form-control">
+            <small id="registrationNumberHelp" class="form-text text-muted">.jpg, .jpeg, .png, .bmp, .svg, .jfif formats are supported.</small>
+          </div>     
+        </div>
+        <div class="col-12 col-sm-3">
+          <div class="form-group">
+            <label for="manufacturer">Manufacturer<span class="text-danger">*</span></label>
+            <select name="manufacturer" id="manufacturer" class="form-control" formControlName="manufacturer" [ngClass]="{ 'is-invalid': submitted && 
+            f.manufacturer.errors }">
+
+              <option value="">Select Manufacturer</option>
+
+              <option *ngFor="let manufacturer of manufacturers$" value="{{ manufacturer.id }}">
+                {{ manufacturer.name|titlecase }}
+              </option>
+
+            </select>
+            <small id="manufacturerHelp" class="form-text text-muted">* Required Field.</small>
+            <div *ngIf="submitted && f.manufacturer.errors" class="invalid-feedback">
+                <div *ngIf="f.manufacturer.errors.required">Manufacturer is required.</div>
+            </div>
+          </div>  
+          <div class="form-group mt-2">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+
+  </form>
+</div>
